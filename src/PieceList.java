@@ -4,11 +4,8 @@ public class PieceList {
 
     private List<Piece> pieces;
 
-    public PieceList(Piece e) {
-        this.pieces.add(0, Piece.sbrn);
-        this.pieces.add(1, Piece.sbry);
-        this.pieces.add(2, Piece.sbsn);
-        this.pieces.add(3, Piece.sbsy);
+    public PieceList(List<Piece> pieces) {
+        this.pieces = pieces;
     }
 
     @Override
