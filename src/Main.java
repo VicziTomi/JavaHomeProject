@@ -42,5 +42,7 @@ public class Main {
 
         System.out.println(tbsy);
         System.out.println(pieces);
+
+
     }
 }
