@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -43,6 +44,12 @@ public class Main {
         System.out.println(tbsy);
         System.out.println(pieces);
 
+        GameArea g = new GameArea(4);
+
+        g.putPiece(tbrn, 2, 1);
+        g.putPiece(swrn, 0, 3);
+
+        g.printMap();
 
     }
 }

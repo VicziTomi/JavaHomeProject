@@ -5,6 +5,8 @@ public class Piece {
     private String shape;
     private String dotted;
     private boolean played;
+    private int posX;
+    private int posY;
 
     public Piece(String height, String color, String shape, String dotted, boolean played) {
         this.height = height;
@@ -17,6 +19,22 @@ public class Piece {
     @Override
     public String toString() {
         return height + "|" + color + "|" + shape + "|" + dotted;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
     public String getHeight() {
