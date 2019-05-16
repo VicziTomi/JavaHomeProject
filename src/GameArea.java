@@ -13,7 +13,7 @@ public class GameArea {
         p.setPosX(x);
         p.setPosY(y);
         gameArea[x][y] = p;
-        printMap();
+        // printMap();
     }
 
     public void printMap() {

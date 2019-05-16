@@ -1,10 +1,13 @@
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+
+
+        final GameArea gameArea = new GameArea(4);
 
         List<Piece> pieces = new ArrayList<Piece>();
         Piece tbsy = new Piece("tall", "black", "square", "yes", false);
@@ -41,15 +44,16 @@ public class Main {
         pieces.add(swrn);
 
 
-        System.out.println(tbsy);
-        System.out.println(pieces);
 
-        GameArea g = new GameArea(4);
+        GameFrame gameFrame = new GameFrame();
 
-        g.putPiece(tbrn, 2, 1);
-        g.putPiece(swrn, 0, 3);
 
-        g.printMap();
+        gameFrame.putPiece(2, 1, tbrn);
+        gameFrame.putPiece(2,2, twrn);
+        gameFrame.putPiece(0,3, swsy);
+
+
 
     }
+
 }

@@ -1,4 +1,6 @@
-public class Piece {
+import javax.swing.*;
+
+public class Piece extends JLabel {
 
     private String height;
     private String color;
@@ -14,6 +16,11 @@ public class Piece {
         this.shape = shape;
         this.dotted = dotted;
         this.played = played;
+        setText(toString());
+    }
+
+    public Piece() {
+
     }
 
     @Override
@@ -37,7 +44,7 @@ public class Piece {
         this.posY = posY;
     }
 
-    public String getHeight() {
+    public String getPieceHeight() {
         return height;
     }
 
