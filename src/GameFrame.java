@@ -1,29 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFrame extends JFrame {
+public class GameFrame extends JFrame implements MouseListener {
 
-    private Piece[][] pieceLabels;
-    private List<Piece> piecePool;
-
-    private Piece tbsy = new Piece("tall", "black", "square", "yes", false);
-    private Piece tbsn = new Piece("tall", "black", "square", "no", false);
-    private Piece tbry = new Piece("tall", "black", "round", "yes", false);
-    private Piece tbrn = new Piece("tall", "black", "round", "no", false);
-    private Piece twsy = new Piece("tall", "white", "square", "yes", false);
-    private Piece twsn = new Piece("tall", "white", "square", "no", false);
-    private Piece twry = new Piece("tall", "white", "round", "yes", false);
-    private Piece twrn = new Piece("tall", "white", "round", "no", false);
-    private Piece sbsy = new Piece("small", "black", "square", "yes", false);
-    private Piece sbsn = new Piece("small", "black", "square", "no", false);
-    private Piece sbry = new Piece("small", "black", "round", "yes", false);
-    private Piece sbrn = new Piece("small", "black", "round", "no", false);
-    private Piece swsy = new Piece("small", "white", "square", "yes", false);
-    private Piece swsn = new Piece("small", "white", "square", "no", false);
-    private Piece swry = new Piece("small", "white", "round", "yes", false);
-    private Piece swrn = new Piece("small", "white", "round", "no", false);
+/*
+    private JPanel pieceArea;
+    private JPanel gameArea;
 
 
     public GameFrame() throws HeadlessException {
@@ -53,37 +39,19 @@ public class GameFrame extends JFrame {
         this.setBounds(0,0,800,800);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        JPanel pieceArea = new JPanel();
+        pieceArea = new JPanel();
         pieceArea.setBackground(Color.GREEN);
         pieceArea.setLayout(new GridLayout(2,8));
 
 
-        JPanel gameArea = new JPanel();
+        gameArea = new JPanel();
         gameArea.setBackground(Color.GRAY);
         gameArea.setLayout(new GridLayout(4,4));
 
+        JPanel selectPiece = new JPanel();
+        selectPiece.setBackground(Color.cyan);
+        selectPiece.setLayout(null);
 
-
-        pieceLabels = new Piece[4][4];
-        for (int i = 0; i < pieceLabels.length; i++) {
-            for (int j = 0; j < pieceLabels[i].length; j++) {
-                pieceLabels[i][j] = new Piece();
-                pieceLabels[i][j].setBorder(BorderFactory.createLineBorder(Color.WHITE));
-                gameArea.add(pieceLabels[i][j]);
-            }
-        }
-
-        for (Piece p : piecePool) {
-            pieceArea.add(p);
-            p.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        }
-
-        this.add(gameArea);
-        this.add(pieceArea);
-
-        gameArea.setAlignmentY(gameArea.TOP_ALIGNMENT);
-
-        pieceArea.setAlignmentY(pieceArea.BOTTOM_ALIGNMENT);
 
         gameArea.setMinimumSize(new Dimension(200,200));
         gameArea.setPreferredSize(new Dimension(500,500));
@@ -91,14 +59,84 @@ public class GameFrame extends JFrame {
 
         pieceArea.setMinimumSize(new Dimension(200,200));
         pieceArea.setPreferredSize(new Dimension(800,300));
-        pieceArea.setMaximumSize(new Dimension(800,300));
+        //pieceArea.setMaximumSize(new Dimension(800,300));
+
+        selectPiece.setMinimumSize(new Dimension(50,50));
+        selectPiece.setPreferredSize(new Dimension(300,500));
+        selectPiece.setMaximumSize(new Dimension(300,500));
+
+
+        pieceLabels = new Piece[4][4];
+        for (int i = 0; i < pieceLabels.length; i++) {
+            for (int j = 0; j < pieceLabels[i].length; j++) {
+                pieceLabels[i][j] = new Piece();
+                pieceLabels[i][j].addMouseListener(this);
+                pieceLabels[i][j].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                gameArea.add(pieceLabels[i][j]);
+            }
+        }
+
+        for (Piece p : piecePool) {
+            pieceArea.add(p);
+            p.addMouseListener(this);
+            p.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            pieceArea.validate();
+            pieceArea.repaint();
+        }
+
+        this.add(gameArea);
+        this.add(selectPiece);
+        this.add(pieceArea);
+        gameArea.setAlignmentY(this.TOP_ALIGNMENT);
+        // selectPiece.setAlignmentY(gameArea.RIGHT_ALIGNMENT);
+        // selectPiece.setAlignmentX(gameArea.RIGHT_ALIGNMENT);
+        pieceArea.setAlignmentY(this.BOTTOM_ALIGNMENT);
 
 
         setVisible(true);
     }
 
-    public void putPiece (int x, int y, Piece p) {
-        this.pieceLabels[y][x].setText(p.toString());
+    Piece temp = new Piece();
+
+
+ */
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        /* if (e.getSource() instanceof Piece) {
+            temp = ((Piece) e.getSource());
+            piecePool.remove(e.getSource());
+            pieceArea.remove((Piece)e.getSource());
+            pieceArea.revalidate();
+            pieceArea.repaint();
+            System.out.println(temp);
+            System.out.println(piecePool);
+
+        }
+        */
     }
+
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
 
 }

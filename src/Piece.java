@@ -23,9 +23,17 @@ public class Piece extends JLabel {
 
     }
 
+    public String nameFrame() {
+        String h = String.valueOf(height.charAt(0));
+        String c = String.valueOf(color.charAt(0));
+        String s = String.valueOf(shape.charAt(0));
+        String d = String.valueOf(dotted.charAt(0));
+        return h + c + s + d;
+    }
+
     @Override
     public String toString() {
-        return height + "|" + color + "|" + shape + "|" + dotted;
+        return nameFrame();
     }
 
     public int getPosX() {

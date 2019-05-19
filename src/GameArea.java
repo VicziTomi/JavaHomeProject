@@ -1,32 +1,43 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class GameArea {
 
-    private Piece[][] gameArea;
+    private Piece[][] map;
+    private final int size = 4;
+    private Piece piece;
 
-    public GameArea(int n) {
-        this.gameArea = new Piece[n][n];
+    public GameArea() {
+        this.map = new Piece[size][size];
     }
 
-    public void putPiece (Piece p, int x, int y) {
+    public void putPiece(Piece p, int x, int y) {
         // TODO lerakrni a megadott koordinátára a bábut + validálni h nincs-e már ott bábu!
-        p.setPosX(x);
-        p.setPosY(y);
-        gameArea[x][y] = p;
-        // printMap();
-    }
-
-    public void printMap() {
-        for (int i = 0; i < gameArea.length; i++) {
-            for (int j = 0; j < gameArea.length; j++) {
-                System.out.print(gameArea[i][j] + " ");
-            }
-            System.out.print("\n");
+        if (map[x][y] == null) {
+            p.setPosX(x);
+            p.setPosY(y);
+            this.map[x][y] = p;
+            printMap();
         }
     }
 
+    public void printMap() {
+        for (int i = 0; i < this.map.length; i++) {
+            for (int j = 0; j < this.map[i].length; j++) {
+                if (map[i][j] instanceof Piece) {
+                    System.out.print(map[i][j].nameFrame() + " ");
+                } else {
+                    System.out.print("#### ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
     @Override
-    public String toString() {
-        return Arrays.toString(gameArea);
+    public String toString () {
+        return Arrays.toString(map);
     }
 }
