@@ -5,34 +5,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUI extends JFrame implements MouseListener, ActionListener {
-
-    public Piece tbsy = new Piece("tall", "black", "square", "yes", false, new ImageIcon(getClass().getResource("icons/p9.png")));
-    public Piece tbsn = new Piece("tall", "black", "square", "no", false, new ImageIcon(getClass().getResource("icons/p8.png")));
-    public Piece tbry = new Piece("tall", "black", "round", "yes", false, new ImageIcon(getClass().getResource("icons/p13.png")));
-    public Piece tbrn = new Piece("tall", "black", "round", "no", false, new ImageIcon(getClass().getResource("icons/p12.png")));
-    public Piece twsy = new Piece("tall", "white", "square", "yes", false, new ImageIcon(getClass().getResource("icons/p1.png")));
-    public Piece twsn = new Piece("tall", "white", "square", "no", false, new ImageIcon(getClass().getResource("icons/p0.png")));
-    public Piece twry = new Piece("tall", "white", "round", "yes", false, new ImageIcon(getClass().getResource("icons/p5.png")));
-    public Piece twrn = new Piece("tall", "white", "round", "no", false, new ImageIcon(getClass().getResource("icons/p4.png")));
-    public Piece sbsy = new Piece("small", "black", "square", "yes", false, new ImageIcon(getClass().getResource("icons/p11.png")));
-    public Piece sbsn = new Piece("small", "black", "square", "no", false, new ImageIcon(getClass().getResource("icons/p10.png")));
-    public Piece sbry = new Piece("small", "black", "round", "yes", false, new ImageIcon(getClass().getResource("icons/p15.png")));
-    public Piece sbrn = new Piece("small", "black", "round", "no", false, new ImageIcon(getClass().getResource("icons/p14.png")));
-    public Piece swsy = new Piece("small", "white", "square", "yes", false, new ImageIcon(getClass().getResource("icons/p3.png")));
-    public Piece swsn = new Piece("small", "white", "square", "no", false, new ImageIcon(getClass().getResource("icons/p2.png")));
-    public Piece swry = new Piece("small", "white", "round", "yes", false, new ImageIcon(getClass().getResource("icons/p7.png")));
-    public Piece swrn = new Piece("small", "white", "round", "no", false, new ImageIcon(getClass().getResource("icons/p6.png")));
-
     public JPanel pieceMap;
     public JPanel temp;
-    public List<Piece> pieces;
+    public PiecePool pieces;
     public JLabel[][] inPlay;
     public JPanel gameMap;
-    public Piece tempPiece;
-
 
     public GUI() throws HeadlessException {
         this.setTitle("Quatro");
@@ -44,28 +25,10 @@ public class GUI extends JFrame implements MouseListener, ActionListener {
         pieceMap.setBackground(Color.green);
         pieceMap.setLayout(new GridLayout(2, 8));
         pieceMap.setBounds(0, 500, 800, 300);
+        pieceMap.addMouseListener(this);
 
-        pieces = new ArrayList<>();
-        pieces.add(tbsy);
-        pieces.add(tbsn);
-        pieces.add(tbry);
-        pieces.add(tbrn);
-        pieces.add(twsy);
-        pieces.add(twsn);
-        pieces.add(twry);
-        pieces.add(twrn);
-        pieces.add(sbsy);
-        pieces.add(sbsn);
-        pieces.add(sbry);
-        pieces.add(sbrn);
-        pieces.add(swsy);
-        pieces.add(swsn);
-        pieces.add(swry);
-        pieces.add(swrn);
-
-
-
-        for (Piece p: pieces) {
+        pieces = new PiecePool();
+        for (Piece p: pieces.getList()) {
             p.setIcon(p.getImg());
             p.addMouseListener(this);
             p.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -76,52 +39,60 @@ public class GUI extends JFrame implements MouseListener, ActionListener {
         temp.setBackground(Color.yellow);
         temp.setBounds(501,0,300,250);
 
-
         gameMap = new JPanel();
         gameMap.setBackground(Color.gray);
         gameMap.setLayout(new GridLayout(4, 4));
         gameMap.setBounds(0,0,500, 500);
-        // gameMap.addMouseListener(this);
 
         inPlay = new Piece[4][4];
         for (int i = 0; i < inPlay.length; i++) {
             for (int j = 0; j < inPlay[i].length; j++) {
+                // Piece def = new Piece("height", "color", "shape", "dotted", true, new ImageIcon(getClass().getResource("icons/p6.png")));
                 inPlay[i][j] = new Piece(true);
+                // inPlay[i][j].setIcon(def.getImg());
                 inPlay[i][j].setBorder(BorderFactory.createLineBorder(Color.white));
                 inPlay[i][j].addMouseListener(this);
                 gameMap.add(inPlay[i][j]);
             }
         }
 
-
-
         this.add(gameMap);
         this.add(temp);
         this.add(pieceMap);
 
         setVisible(true);
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        tempPiece = (Piece) e.getSource();
-        if (!tempPiece.isPlayed()) {
+        Piece tempPiece = null;
+        if (e.getSource() instanceof Piece && !((Piece) e.getSource()).isPlayed()) {
+            System.err.println(e.getSource());
+            tempPiece = (Piece) e.getSource();
+            tempPiece.setPlayed(true);
             temp.add(tempPiece);
             pieces.remove(tempPiece);
-            tempPiece.setPlayed(true);
-            System.out.println(temp);
             pieceMap.revalidate();
             pieceMap.repaint();
-        } else {
+            System.out.println(temp);
+            System.err.println(tempPiece);
+        } else if (e.getSource() instanceof Piece && ((Piece) e.getSource()).isPlayed()) {
             //TODO hogy a túróba kell kinyerni a JPanel (grid) sor / oszlop értékeit? ActionListener???
-            int x = e.getX();
-            int y = e.getY();
-            inPlay[x][y] = tempPiece;
-            temp.remove(tempPiece);
+            int x = ((Piece) e.getSource()).getX();
+            int y = ((Piece) e.getSource()).getY();
+            inPlay[x][y] = tempPiece; //ezt a sort átírni, fogadja a tempPiece-t és a kattintás koordiátájára tegye le!
+            inPlay[x][y].setIcon(tempPiece.getImg());
+            inPlay[x][y].revalidate();
+            inPlay[x][y].repaint();
             gameMap.revalidate();
             gameMap.repaint();
+            temp.remove(tempPiece);
+            // tempPiece.remove(temp);
+            temp.revalidate();
+            temp.repaint();
             System.err.println(x + " " + y);
+            System.err.println(tempPiece);
+            System.err.println(temp);
         }
     }
 

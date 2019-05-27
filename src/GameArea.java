@@ -31,7 +31,7 @@ public class GameArea extends JPanel implements MouseListener {
         for (int i = 0; i < this.map.length; i++) {
             for (int j = 0; j < this.map[i].length; j++) {
                 if (map[i][j] instanceof Piece) {
-                    System.out.print(map[i][j].nameFrame() + " ");
+                    // System.out.print(map[i][j].nameFrame() + " ");
                 } else {
                     System.out.print("#### ");
                 }

@@ -8,6 +8,7 @@ public class Main {
 
         GUI gui = new GUI();
 
+        /*
         // final GameArea gameArea = new GameArea(4);
 
 
@@ -20,14 +21,14 @@ public class Main {
 
         GameArea gameArea = new GameArea();
 
-        /*
+
         gameArea.putPiece(p.swsy, 0, 1);
         System.out.println("-------------------");
         gameArea.putPiece(p.tbsn, 0, 2);
 
         System.out.println("-------------------");
         gameArea.putPiece(p.swsy, 0, 0);
-         */
+
 
         System.out.println(p);
 
@@ -41,7 +42,7 @@ public class Main {
                 int z = Integer.parseInt(choose[0]);
                 // temp[0] = p.getPiece(z);
                 System.out.println(Arrays.toString(temp));
-                p.remove(z);
+                // p.remove(z);
                 System.out.println(p);
                 // System.out.println("apfkgnpa");
                 line = scn.nextLine();
@@ -58,4 +59,6 @@ public class Main {
         scn.close();
     }
 
+    */
+    }
 }

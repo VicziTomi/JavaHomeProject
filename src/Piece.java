@@ -22,10 +22,9 @@ public class Piece extends JLabel {
         // setText(toString());
     }
 
-    public Piece(boolean played) {
-        this.played = played;
-    }
+    public Piece(boolean played) { this.played = played; }
 
+    /*
     public String nameFrame() {
         String h = String.valueOf(height.charAt(0));
         String c = String.valueOf(color.charAt(0));
@@ -38,6 +37,8 @@ public class Piece extends JLabel {
     public String toString() {
         return nameFrame();
     }
+
+     */
 
     public ImageIcon getImg() {
         return img;
