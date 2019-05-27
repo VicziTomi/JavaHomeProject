@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.im.spi.InputMethod;
 
 public class Piece extends JLabel {
 
@@ -9,18 +10,20 @@ public class Piece extends JLabel {
     private boolean played;
     private int posX;
     private int posY;
+    private ImageIcon img;
 
-    public Piece(String height, String color, String shape, String dotted, boolean played) {
+    public Piece(String height, String color, String shape, String dotted, boolean played, ImageIcon img) {
         this.height = height;
         this.color = color;
         this.shape = shape;
         this.dotted = dotted;
         this.played = played;
-        setText(toString());
+        this.img = img;
+        // setText(toString());
     }
 
-    public Piece() {
-
+    public Piece(boolean played) {
+        this.played = played;
     }
 
     public String nameFrame() {
@@ -34,6 +37,14 @@ public class Piece extends JLabel {
     @Override
     public String toString() {
         return nameFrame();
+    }
+
+    public ImageIcon getImg() {
+        return img;
+    }
+
+    public void setImg(ImageIcon img) {
+        this.img = img;
     }
 
     public int getPosX() {
