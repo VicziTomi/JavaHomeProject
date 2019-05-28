@@ -68,22 +68,54 @@ public class GUI extends JFrame implements MouseListener {
         setVisible(true);
     }
 
-    public int mouseX(int i) {
+    public int mouseY(int i) {
+        int y = 0;
+        if (i == 0) { y = 0; }
+        else if (i == 125) { y = 1; }
+        else if (i == 250) { y = 2; }
+        else if (i == 375) { y = 3; }
+        return y;
+    }
+
+    public int mouseX(int j) {
         int x = 0;
-        if (i == 0) { x = 0; }
-        else if (i == 125) { x = 1; }
-        else if (i == 250) { x = 2; }
-        else if (i == 375) { x = 3; }
+        if (j == 0) { x = 0; }
+        else if (j == 125) { x = 1; }
+        else if (j == 250) { x = 2; }
+        else if (j == 375) { x = 3; }
         return x;
     }
 
-    public int mouseY(int j) {
-        int y = 0;
-        if (j == 0) { y = 0; }
-        else if (j == 125) { y = 1; }
-        else if (j == 250) { y = 2; }
-        else if (j == 375) { y = 3; }
-        return y;
+    public void rowCheck(int row) {
+        Piece p0 = (Piece)inPlay[row][0];
+        Piece p1 = (Piece)inPlay[row][1];
+        Piece p2 = (Piece)inPlay[row][2];
+        Piece p3 = (Piece)inPlay[row][3];
+        if (p0.height.equals(p1.height) && p1.height.equals(p2.height) && p2.height.equals(p3.height)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.height);
+        } else if (p0.color.equals(p1.color) && p1.color.equals(p2.color) && p2.color.equals(p3.color)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.color);
+        } else if (p0.shape.equals(p1.shape) && p1.shape.equals(p2.shape) && p2.shape.equals(p3.shape)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.shape);
+        } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.dotted);
+        }
+    }
+
+    public void columnCheck(int column) {
+        Piece p0 = (Piece)inPlay[0][column];
+        Piece p1 = (Piece)inPlay[1][column];
+        Piece p2 = (Piece)inPlay[2][column];
+        Piece p3 = (Piece)inPlay[3][column];
+        if (p0.height.equals(p1.height) && p1.height.equals(p2.height) && p2.height.equals(p3.height)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.height);
+        } else if (p0.color.equals(p1.color) && p1.color.equals(p2.color) && p2.color.equals(p3.color)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.color);
+        } else if (p0.shape.equals(p1.shape) && p1.shape.equals(p2.shape) && p2.shape.equals(p3.shape)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.shape);
+        } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
+            JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.dotted);
+        }
     }
 
     @Override
@@ -99,28 +131,28 @@ public class GUI extends JFrame implements MouseListener {
             System.out.println(temp.toString());
             System.err.println(tempPiece.toString());
         } else if (e.getSource() instanceof Piece && ((Piece) e.getSource()).isPlayed()) {
-            int i = ((Piece) e.getSource()).getX();
-            int j = ((Piece) e.getSource()).getY();
-            int x = mouseX(j);
-            int y = mouseY(i);
-            System.err.println(x + " " + y);
+            int y = mouseY(((Piece) e.getSource()).getY());
+            int x = mouseX(((Piece) e.getSource()).getX());
+            System.err.println(y + " " + x);
             Piece toPut = (Piece) temp.getComponent(0);
             ImageIcon toPutImage = toPut.getImg();
-            //inPlay[x][y] = toPut;
-            inPlay[x][y].setIcon(toPutImage);
-            ((Piece)inPlay[x][y]).setHeight(toPut.height);
-            ((Piece)inPlay[x][y]).setColor(toPut.color);
-            ((Piece)inPlay[x][y]).setShape(toPut.shape);
-            ((Piece)inPlay[x][y]).setDotted(toPut.dotted);
-            // inPlay[x][y].revalidate();
-            // inPlay[x][y].repaint();
+            //inPlay[y][x] = toPut;
+            inPlay[y][x].setIcon(toPutImage);
+            ((Piece)inPlay[y][x]).setHeight(toPut.height);
+            ((Piece)inPlay[y][x]).setColor(toPut.color);
+            ((Piece)inPlay[y][x]).setShape(toPut.shape);
+            ((Piece)inPlay[y][x]).setDotted(toPut.dotted);
+            // inPlay[y][x].revalidate();
+            // inPlay[y][x].repaint();
             // gameMap.revalidate();
             // gameMap.repaint();
             temp.remove(toPut);
             temp.revalidate();
             temp.repaint();
+            rowCheck(y);
+            columnCheck(x);
             System.err.println(toPut);
-            System.err.println(inPlay[x][y].toString());
+            System.err.println(inPlay[y][x].toString());
         }
     }
 
