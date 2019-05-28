@@ -1,16 +1,15 @@
 import javax.swing.*;
-import java.awt.im.spi.InputMethod;
 
 public class Piece extends JLabel {
 
-    private String height;
-    private String color;
-    private String shape;
-    private String dotted;
-    private boolean played;
-    private int posX;
-    private int posY;
-    private ImageIcon img;
+    public String height;
+    public String color;
+    public String shape;
+    public String dotted;
+    public boolean played;
+    public int posX;
+    public int posY;
+    public ImageIcon img;
 
     public Piece(String height, String color, String shape, String dotted, boolean played, ImageIcon img) {
         this.height = height;
@@ -19,12 +18,11 @@ public class Piece extends JLabel {
         this.dotted = dotted;
         this.played = played;
         this.img = img;
-        // setText(toString());
     }
 
-    public Piece(boolean played) { this.played = played; }
+    public Piece(boolean played, ImageIcon img) { this.played = played; this.img = img; }
 
-    /*
+
     public String nameFrame() {
         String h = String.valueOf(height.charAt(0));
         String c = String.valueOf(color.charAt(0));
@@ -37,8 +35,6 @@ public class Piece extends JLabel {
     public String toString() {
         return nameFrame();
     }
-
-     */
 
     public ImageIcon getImg() {
         return img;
