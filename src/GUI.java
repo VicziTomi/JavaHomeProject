@@ -86,7 +86,7 @@ public class GUI extends JFrame implements MouseListener {
         return x;
     }
 
-    public void rowCheck(int row) {
+    public boolean rowCheck(int row) {
         Piece p0 = (Piece)inPlay[row][0];
         Piece p1 = (Piece)inPlay[row][1];
         Piece p2 = (Piece)inPlay[row][2];
@@ -99,10 +99,13 @@ public class GUI extends JFrame implements MouseListener {
             JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.shape);
         } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
             JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Line: " + (row + 1) + "\n" + "Type: " + p0.dotted);
+        } else {
+            return false;
         }
+        return true;
     }
 
-    public void columnCheck(int column) {
+    public boolean columnCheck(int column) {
         Piece p0 = (Piece)inPlay[0][column];
         Piece p1 = (Piece)inPlay[1][column];
         Piece p2 = (Piece)inPlay[2][column];
@@ -115,6 +118,46 @@ public class GUI extends JFrame implements MouseListener {
             JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.shape);
         } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
             JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Column: " + (column + 1) + "\n" + "Type: " + p0.dotted);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public void diagonal1Check(int y, int x) {
+        if ((y == 0 && x == 0) || (y == 1 && x ==1) || (y == 2 && x == 2) || (y == 3 && x == 3)) {
+            Piece p0 = (Piece)inPlay[0][0];
+            Piece p1 = (Piece)inPlay[1][1];
+            Piece p2 = (Piece)inPlay[2][2];
+            Piece p3 = (Piece)inPlay[3][3];
+            if (p0.height.equals(p1.height) && p1.height.equals(p2.height) && p2.height.equals(p3.height)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 1: " + "\n" + "Type: " + p0.height);
+            } else if (p0.color.equals(p1.color) && p1.color.equals(p2.color) && p2.color.equals(p3.color)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 1: " + "\n" + "Type: " + p0.color);
+            } else if (p0.shape.equals(p1.shape) && p1.shape.equals(p2.shape) && p2.shape.equals(p3.shape)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 1: " + "\n" + "Type: " + p0.shape);
+            } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 1: " + "\n" + "Type: " + p0.dotted);
+            }
+        }
+    }
+
+
+    public void diagonal2Check(int y, int x) {
+        if ((y == 0 && x == 3) || (y == 1 && x ==2) || (y == 2 && x == 1) || (y == 3 && x == 0)) {
+            Piece p0 = (Piece)inPlay[0][3];
+            Piece p1 = (Piece)inPlay[1][2];
+            Piece p2 = (Piece)inPlay[2][1];
+            Piece p3 = (Piece)inPlay[3][0];
+            if (p0.height.equals(p1.height) && p1.height.equals(p2.height) && p2.height.equals(p3.height)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 2: " + "\n" + "Type: " + p0.height);
+            } else if (p0.color.equals(p1.color) && p1.color.equals(p2.color) && p2.color.equals(p3.color)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 2: " + "\n" + "Type: " + p0.color);
+            } else if (p0.shape.equals(p1.shape) && p1.shape.equals(p2.shape) && p2.shape.equals(p3.shape)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 2: " + "\n" + "Type: " + p0.shape);
+            } else if (p0.dotted.equals(p1.dotted) && p1.dotted.equals(p2.dotted) && p2.dotted.equals(p3.dotted)) {
+                JOptionPane.showMessageDialog(this, "YOU WON!" + "\n" + "Diagonal 2: " + "\n" + "Type: " + p0.dotted);
+            }
         }
     }
 
@@ -150,6 +193,8 @@ public class GUI extends JFrame implements MouseListener {
                 temp.repaint();
                 rowCheck(y);
                 columnCheck(x);
+                diagonal1Check(y, x);
+                diagonal2Check(y, x);
             } else {
                 JOptionPane.showMessageDialog(this, "Field already taken!");
             }
