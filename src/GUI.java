@@ -122,37 +122,37 @@ public class GUI extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Piece tempPiece = null;
         if (e.getSource() instanceof Piece && !((Piece) e.getSource()).isPlayed()) {
-            tempPiece = (Piece) e.getSource();
-            tempPiece.setPlayed(true);
-            temp.add(tempPiece);
-            pieces.remove(tempPiece);
-            pieceMap.revalidate();
-            pieceMap.repaint();
-            System.out.println(temp.toString());
-            System.err.println(tempPiece.toString());
+            if (temp.getAccessibleContext().getAccessibleChildrenCount() > 0) {
+                JOptionPane.showMessageDialog(this, "Please play the given piece!");
+            } else {
+                tempPiece = (Piece) e.getSource();
+                tempPiece.setPlayed(true);
+                temp.add(tempPiece);
+                pieces.remove(tempPiece);
+                pieceMap.revalidate();
+                pieceMap.repaint();
+                System.out.println(temp.toString());
+                System.err.println(tempPiece.toString());
+            }
         } else if (e.getSource() instanceof Piece && ((Piece) e.getSource()).isPlayed()) {
             int y = mouseY(((Piece) e.getSource()).getY());
             int x = mouseX(((Piece) e.getSource()).getX());
-            System.err.println(y + " " + x);
             Piece toPut = (Piece) temp.getComponent(0);
             ImageIcon toPutImage = toPut.getImg();
-            //inPlay[y][x] = toPut;
-            inPlay[y][x].setIcon(toPutImage);
-            ((Piece)inPlay[y][x]).setHeight(toPut.height);
-            ((Piece)inPlay[y][x]).setColor(toPut.color);
-            ((Piece)inPlay[y][x]).setShape(toPut.shape);
-            ((Piece)inPlay[y][x]).setDotted(toPut.dotted);
-            // inPlay[y][x].revalidate();
-            // inPlay[y][x].repaint();
-            // gameMap.revalidate();
-            // gameMap.repaint();
-            temp.remove(toPut);
-            temp.revalidate();
-            temp.repaint();
-            rowCheck(y);
-            columnCheck(x);
-            System.err.println(toPut);
-            System.err.println(inPlay[y][x].toString());
+            if (((Piece)inPlay[y][x]).getColor().isEmpty()) {
+                inPlay[y][x].setIcon(toPutImage);
+                ((Piece) inPlay[y][x]).setHeight(toPut.height);
+                ((Piece) inPlay[y][x]).setColor(toPut.color);
+                ((Piece) inPlay[y][x]).setShape(toPut.shape);
+                ((Piece) inPlay[y][x]).setDotted(toPut.dotted);
+                temp.remove(toPut);
+                temp.revalidate();
+                temp.repaint();
+                rowCheck(y);
+                columnCheck(x);
+            } else {
+                JOptionPane.showMessageDialog(this, "Field already taken!");
+            }
         }
     }
 
